@@ -1,0 +1,9 @@
+<div id="nav" class="w-full px-6">
+  <app-gifs-side-menu-option
+    *ngFor="let option of menuOptions"
+    [icon]="option.icon"
+    [title]="option.title"
+    [subtitle]="option.subtitle"
+    [router]="option.router"
+  ></app-gifs-side-menu-option>
+</div>
