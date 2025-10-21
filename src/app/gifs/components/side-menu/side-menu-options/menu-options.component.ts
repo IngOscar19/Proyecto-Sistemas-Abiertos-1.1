@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { MenuOption } from '../../../interfaces/menu-option.interface';
 import { GifsSideMenuOptionComponent } from "../../gifs-side-menu-option/gifs-side-menu-option.component";
 import { GifsService } from '../../../services/gif.service';
+import { Router } from '@angular/router';
+import { HistoryOption } from '../../../interfaces/history-option.interface';
 
 @Component({
   selector: 'app-menu-options',
@@ -12,6 +14,7 @@ import { GifsService } from '../../../services/gif.service';
 })
 export class MenuOptionsComponent {
   private gifsService = inject(GifsService);
+  private router = inject(Router);
 
   menuOptions: MenuOption[] = [
     {
@@ -34,13 +37,16 @@ export class MenuOptionsComponent {
     },
   ];
 
-  
-  get historyOptions(): MenuOption[] {
-    return this.gifsService.history().slice(0, 5).map(term => ({
-      icon: 'fa-solid fa-clock-rotate-left',
-      title: term,
-      subtitle: 'Recent search',
-      router: '/dashboard',
-    }));
+  get historyOptions(): { title: string; query: string; icon: string }[] {
+  return this.gifsService.history().slice(0, 5).map(term => ({
+    icon: 'fa-solid fa-clock-rotate-left',
+    title: term,
+    query: term, 
+  }));
+}
+
+  goToSearch(query: string) {
+    this.router.navigate(['/search'], { queryParams: { q: query } });
   }
+
 }
