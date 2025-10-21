@@ -6,7 +6,9 @@
     <i [class]="icon + ' w-6 h-6 text-white'"></i>
   </div>
   <div class="flex flex-col">
-    <span class="text-lg font-bold leading-5 text-white">{{ title }}</span>
+    
+    <span class="text-lg font-bold leading-5 text-white hidden sm:inline">{{ title }}</span>
+    
     <span class="text-sm text-white/50 hidden md:block">{{ subtitle }}</span>
   </div>
 </a>

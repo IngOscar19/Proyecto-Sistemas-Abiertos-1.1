@@ -1,6 +1,23 @@
-<div id="nav" class="w-full px-6">
+<div id="nav" class="w-full px-2 md:px-6">
+  
   <app-gifs-side-menu-option
     *ngFor="let option of menuOptions"
+    [icon]="option.icon"
+    [title]="option.title"
+    [subtitle]="option.subtitle"
+    [router]="option.router"
+  ></app-gifs-side-menu-option>
+
+
+  <div class="border-t border-slate-700 my-4"></div>
+
+
+  <div class="mb-2">
+    <p class="text-xs text-slate-500 px-2 mb-2 hidden sm:block">Recent Searches</p>
+  </div>
+  
+  <app-gifs-side-menu-option
+    *ngFor="let option of historyOptions"
     [icon]="option.icon"
     [title]="option.title"
     [subtitle]="option.subtitle"

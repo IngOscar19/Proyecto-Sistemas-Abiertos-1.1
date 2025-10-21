@@ -1,0 +1,23 @@
+<div>
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">🔥 Trending GIFs</h2>
+      
+      @if (gifsService.isLoading()) {
+        <p class="text-center text-gray-500 mt-8 animate-pulse">
+          Cargando GIFs populares...
+        </p>
+      }
+      
+      @else if (gifsService.gifs().length === 0) {
+        <p class="text-center text-gray-500 mt-8">
+          No hay GIFs disponibles en este momento.
+        </p>
+      }
+      
+      @else {
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mt-4">
+          @for (gif of gifsService.gifs(); track gif.id) {
+            <app-gif-card-component [gif]="gif"></app-gif-card-component>
+          }
+        </div>
+      }
+    </div>

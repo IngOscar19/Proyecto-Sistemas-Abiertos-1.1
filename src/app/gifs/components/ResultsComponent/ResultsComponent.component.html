@@ -1,0 +1,40 @@
+<!-- Estado de carga -->
+<div *ngIf="gifsService.isLoading()" class="flex items-center justify-center mt-20">
+  <div class="text-center">
+    <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mb-4"></div>
+    <p class="text-gray-600 text-lg">Buscando GIFs...</p>
+  </div>
+</div>
+
+<!-- Sin resultados - Mensaje de bienvenida -->
+<div *ngIf="!gifsService.isLoading() && gifsService.gifs().length === 0" 
+     class="flex items-center justify-center mt-20">
+  <div class="text-center max-w-md">
+    <div class="text-6xl mb-4">🔍</div>
+    <h2 class="text-2xl font-bold text-gray-800 mb-2">¡Busca tu GIF perfecto!</h2>
+    <p class="text-gray-600">
+      Usa el buscador de arriba para encontrar GIFs divertidos, memes, reacciones y mucho más.
+    </p>
+    <p class="text-gray-500 text-sm mt-4">
+      💡 Tip: Intenta buscar "happy", "dance", "cats" o lo que quieras
+    </p>
+  </div>
+</div>
+
+<!-- Mostrar los GIFs -->
+<div *ngIf="!gifsService.isLoading() && gifsService.gifs().length > 0">
+  <!-- Contador de resultados -->
+  <div class="mb-4">
+    <p class="text-gray-600">
+      <span class="font-semibold text-gray-800">{{ gifsService.gifs().length }}</span> GIFs encontrados
+    </p>
+  </div>
+  
+  
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+    <app-gif-card-component 
+      *ngFor="let gif of gifsService.gifs(); trackBy: trackByGifId"
+      [gif]="gif">
+    </app-gif-card-component>
+  </div>
+</div>
