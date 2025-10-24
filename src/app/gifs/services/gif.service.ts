@@ -1,42 +1,38 @@
 import { Injectable, signal, effect, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment, type Environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class GifsService {
   private http = inject(HttpClient);
-  private apiKey = 'gc660Zg0YCSEf7aNI2sXjY5N3i0SlJOn';
-  private apiUrl = 'https://api.giphy.com/v1/gifs/search';
+  private readonly apiKey = environment.apiKey;
+  private readonly apiUrl = environment.giphyUrl;
 
-  
   gifs = signal<any[]>([]);
   history = signal<string[]>([]);
   isLoading = signal<boolean>(false);
 
   constructor() {
-    
     const stored = localStorage.getItem('history');
     if (stored) this.history.set(JSON.parse(stored));
 
-    
     effect(() => {
       localStorage.setItem('history', JSON.stringify(this.history()));
     });
   }
 
-  searchGifs(query: string, limit: number = 50) {
+  searchGifs(query: string, limit: number = 50): void {
     query = query.trim().toLowerCase();
     if (!query) return;
 
-    console.log('🔍 Buscando:', query);
+    console.log('Buscando:', query);
 
-    
     if (!this.history().includes(query)) {
       this.history.set([query, ...this.history().slice(0, 9)]);
     }
 
     this.isLoading.set(true);
 
-    
     const url = `${this.apiUrl}?api_key=${this.apiKey}&q=${query}&limit=${limit}&rating=g&lang=en`;
 
     this.http.get(url).subscribe({
@@ -53,8 +49,7 @@ export class GifsService {
     });
   }
 
-  
-  clearGifs() {
+  clearGifs(): void {
     this.gifs.set([]);
   }
 }
