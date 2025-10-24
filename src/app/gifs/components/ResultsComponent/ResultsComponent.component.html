@@ -23,7 +23,6 @@
 
 
 <div *ngIf="!gifsService.isLoading() && gifsService.gifs().length > 0">
-
   <div class="mb-4">
     <p class="text-gray-600">
       <span class="font-semibold text-gray-800">{{ gifsService.gifs().length }}</span> GIFs encontrados
@@ -31,12 +30,9 @@
   </div>
 
 
-  <div
-    class="columns-2 sm:columns-3 md:columns-4 lg:columns-5 xl:columns-6 gap-4 space-y-4"
-  >
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
     <div
       *ngFor="let gif of gifsService.gifs(); trackBy: trackByGifId"
-      class="break-inside-avoid mb-4"
     >
       <app-gif-card-component [gif]="gif"></app-gif-card-component>
     </div>
